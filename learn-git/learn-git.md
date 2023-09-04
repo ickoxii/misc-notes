@@ -38,9 +38,57 @@ For example, running the following when in a git repository:
 ### `git log`
 
 The `git log` command provides information on the most recent commit.
-It shows the author, date and time, and commit message.
+It shows the author, date and time, and commit messages for all
+commits in the log.
 
 > `git log`
+
+### `git add`
+
+Probably the most basic git command. It is used to stage changes
+for commit, or to add new files to the repository so that changes
+may be tracked. `git add` is used for new files, modified files, 
+and deleted files alike.
+
+
+- Add specific files
+> git add file1.txt file2.txt
+
+- Add all files in current directory (and subdirectories)
+> git add .
+
+- Add all files with a particular extension
+> git add \*.txt
+
+- Add all files in a directory
+> git add dir/
+
+#### Important Flags and Options:
+
+- `-A`, `--all`: This stages (adds) all changes (modifications, deletions,
+    new files) in the entire repository.
+- `-u`, `--update`: This stages modifications and deletions, but not
+    new files.
+- `-i`, `--interactive`: Allows you to stage changes interactively.
+- `-p`, `--patch`: Allows you to interactively choose chunks of changes
+    to stage.
+
+### `git rm`
+
+git rm is for when you delete a file from your working directory which
+has previously been tracked with Git.
+
+> `git rm file`
+> `git commit -m "file removed"`
+
+If the file has already been manually deleted, you can stage its
+deletion with `git add file`. This is because `git add` is for
+***staging changes***, not just *adding files*. 
+
+#### Removing a File From Git Repository but Keep on Local System
+
+> `git rm --cached path/to/file`
+> `git commit -m "Stopped tracking file"`
 
 ---
 
@@ -327,4 +375,109 @@ branches.
 
 [The Merge Commit](/Documents/coding/notes/learn-git/merge-commit-graphic.png)
 
+### Rebase
+
+Idk.
+
+---
+
+The next section is from Fireship's video: <https://www.youtube.com/watch?v=HkdAHXoRtos>
+
+---
+
+## Deleting a Git Repository
+
+1. `cd` to your repository
+2. `rm -rf .git` to remove the git directory
+3. Go to your repository on github.com
+4. Settings > Danger Zone > Delete Repo
+
+---
+
+From chat.gpt:
+
+---
+
+# How to Create a New Branch, Make Changes, And Add Back to Main Branch
+
+## Safely Edit and Test Bash Config with Git
+
+1. **Navigate to your configuration directory**
+
+   Assuming this is where your bash configuration files are stored and it's a git repository:
+   
+   ```bash
+   cd path/to/your/config_directory
+   ```
+
+2. **Check your current branch**
+
+   This will show you your current branch.
+   
+   ```bash
+   git status
+   ```
+
+3. **Create a new branch and move to that branch**
+
+   Let's name the new branch `bash_changes`:
+   
+   ```bash
+   git checkout -b bash_changes
+   ```
+
+
+4. **Make your edits**
+
+   Edit your bash configuration files as needed using your preferred editor.
+
+5. **Testing your changes**
+
+   After you've made changes, you'd want to reload your bash configuration to see the effects. 
+   
+   If you've made changes to `.bashrc`, you can source it:
+
+   ```bash
+   source ~/.bashrc
+   ```
+   
+   Or, if you've changed `.bash_profile` or other shell initialization files, you might want to just start a new terminal session.
+
+6. **After testing and confirming the changes**
+
+
+   Add the changes to the staging area and commit them:
+   
+   ```bash
+   git add -A
+   git commit -m "Description of the changes you made"
+   ```
+
+7. **Merge changes back to the original branch**
+
+
+   Let's assume the original branch you were on is named `main`:
+   
+   ```bash
+   # Switch back to the main branch
+   git checkout main
+
+   # Merge the bash_changes branch into main
+   git merge bash_changes
+
+   # If you're done with the bash_changes branch and want to delete it
+   git branch -d bash_changes
+   ```
+
+8. **Push changes**
+
+   If you want to push the changes back to a remote repository (e.g., on GitHub), you can:
+   
+   ```bash
+   git push origin main
+   ```
+
+9. **Final check**
+
+   Ensure everything is working as expected. Sometimes when merging, conflicts might arise which need to be resolved. After a merge, always double-check the functionality to ensure everything is as it should be.
 
