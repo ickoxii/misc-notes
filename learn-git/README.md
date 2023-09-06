@@ -85,11 +85,11 @@ that already has files within.
 
 We will now go through this code line by line and dissect it.
 
-    1. `cd path/to/project`
+    1. cd path/to/project
 
 move to directory
 
-    2. `git init`
+    2. git init
 
 Initialize the git repository. In our example, we assumed that we have an
 existing local repository that already has files. If we are starting fresh
@@ -99,46 +99,46 @@ to use `git init` and `git remote add origin <link>`
 
     git clone https://github.com/username/repository-name.git
 
-    3. `echo "# Title of Project" >> README.md`
+    3. echo "# Title of Project" >> README.md
 
 GitHub uses a Markdown file named *README.md* to print information about the
 repository on the repositories main page. This README file is written by the
 developer and should provide adequate information on the repository.
 
-    4. `git add .`
+    4. git add .
 
 Add the entire directory to the staging area.
 
-    5. `git commit -m "Initial commit"`
+    5. git commit -m "Initial commit"
 
 `git commit` captures a snapshot of the changes in your local directory (changes
 added to the staging area from `git add` or `git commit -a`), effectively
 creating a new version in your local Git history.
 
-    6. `git remote add origin https://github.com/username/repository-name.git`
+    6. git remote add origin https://github.com/username/repository-name.git
 
 This is completely optional, and is only needed if we are wanting to create a
 remote repository on GitHub. We will still have a local Git
 repository on our device without invoking this line.
 
-    7. `git push -u origin main`
+    7. git push -u origin main
 
 `git push` sends our local commits to a remote repository. `git push` is not
 needed if you're only using a local repository with no intention of sharing or
 backing up changes to a remote repository.
 
-    8. `git checkout -b new_branch_name`
+    8. git checkout -b new_branch_name
 
 `git checkout` is used to create a new branch within our Git repository. In Git
 versions 2.23 and later, `git switch` can be used in replacement for `git
 checkout` (although some flags may be different. i.e., `git checkout -b` is
 equivalent to `git switch -c`).
 
-    9. `vim file-to-change`
+    9. vim file-to-change
 
 Opens the file to change in vim so you can make edits.
 
-    10. `git status`
+    10. git status
 
 Provides information about the current state of your working directory relative
 to the current branch. `git status` prints the following details:
@@ -149,51 +149,51 @@ to the current branch. `git status` prints the following details:
 - **Untracked files**
 - **Divergence Information**
 
-    11. `git add -p file-to-change`
+    11. git add -p file-to-change
 
 Adding the `-p` flag to `git add` puts us in "patch" mode. This allows us to
 interactively select chunks from changes made to the file to get ready for
 commit.
 
-    12. `git commit`
+    12. git commit
 
 Running `git commit` without the `-m` option opens up a file in your default
 text editor that allows you to make more descriptive commit messages. Saving and
 quitting the editor will commit the changes with the text you added.
 
-    13. `git branch`
+    13. git branch
 
 This displays all Git branches in the current repository.
 
-    14. `git checkout main`
+    14. git checkout main
 
 After making our changes, we move back to the branch we want to merge our
 changes into. Note we do not have to use a flag since we are moving to a branch
 that already exists.
 
-    15. `git pull origin main`
+    15. git pull origin main
 
 This is optional but recommended if collaborating with others. It is good
 practice to pull the latest changes from the remote repository to ensure you're
 merging with the most recent code.
 
-    16. `git merge new_branch_name`
+    16. git merge new_branch_name
 
 Merge our branch back into main. If there are any merge conflicts, you'll need
 to resolve them manually. Once resolved, you would then commit the resolved
 changes.
 
-    17. `git push origin main`
+    17. git push origin main
 
 After the merge is successfull and you've resolved any potential conflicts, push
 the changes to the remote repository.
 
-    18. `git branch -d new_branch_name`
-     `git push origin --delete new_branch_name`
+    18. git branch -d new_branch_name
+     git push origin --delete new_branch_name
 
 (Optional) Delete the branch locally and remotely.
 
-    19. `git log`
+    19. git log
 
 View the commit history of a Git repository. It displays a list of commits, from
 the most recent to the oldest, providing information about each commit such as
@@ -210,7 +210,7 @@ local repository.
 If we do not have any files to start with, we can skip the `git init` and `git
 add .` Instead, we can use:
 
-`git clone https://github.com/username/repository-name.git`
+    git clone https://github.com/username/repository-name.git
 
 ### No Remote Repository
 
@@ -225,17 +225,17 @@ pushing or pulling from a remote repository.
 
 1. `-b`: Create a new branch and switch to it
 
-    `git checkout -b new_branch_name`
+    git checkout -b new_branch_name
 
 2. `-B`: Create a new branch or reset an existing branch to a specified starting
 point.
 
-    `git checkout -B existing_or_new_branch_name`
+    git checkout -B existing_or_new_branch_name
 
 3. `-t`, `--track`: When creating a new branch, set up to "upstream"
 configuration. This is usually used with remote branches.
 
-    `git checkout --track origin/remote_branch_name`
+    git checkout --track origin/remote_branch_name
 
 4. `-l`: Create a new branch but keep its logs in refs/heads/.
 
@@ -247,7 +247,7 @@ configuration. This is usually used with remote branches.
 branch will have no parents, and it will be the root of a new history completely
 disconnected from all the other branches and commits.
 
-    `git checkout --orphan new_orphan_branch_name`
+    git checkout --orphan new_orphan_branch_name
 
 8. `-p`, `--patch`: Interactively selects chunks in the difference between the
 current branch and the given commit (or the index, if no commit is given). This
@@ -264,27 +264,27 @@ commited versions of your files.
 If you have already staged files (using `git add`), you can remove these files
 from the staging area before you use `git commit` by using:
 
-    `git restore --changed <files>`
+    git restore --staged <files>
 
 ### Checkout a Previous Commit (detach HEAD)
 
 To temporarily go back, or "checkout", a previous commit:
 
-    `git checkout <commit_hash>`
+    git checkout <commit_hash>
 
 This will detach the HEAD, meaning you're no longer on any branch but have check
 out the code from a specific commit. This is good for temporary explorations. If
 you want to make changes and start a new branch from this point, you can create
 a new branch while in this state:
    
-    `git checkout -b new_branch_name`
+    git checkout -b new_branch_name
 
 ### Revert a Specific Commit
 
 If you want to undo the changes introduced by a specific commit and create a new
 commit that undoes those changes, use:
 
-    `git revert <commit_hash>`
+    git revert <commit_hash>
 
 This command will create a new commit that undoes the changes from the specified
 commit. It's a safe way to undo changes without rewriting history.
@@ -329,7 +329,7 @@ Here is a basic overview of how it works:
 
 1. **View the reflog**:
 
-    `git reflog`
+    git reflog
 
 This will produce an output like:
     
