@@ -386,3 +386,19 @@ between a commit and a working directory), you can use:
 
 This will show the difference between the states of your project at `HEAD@{1}`
 and `HEAD@{0}`.
+
+## MISC
+
+### Using `git rm`
+
+Sometimes a path between your git repository and your local working directory
+will change. This might occur because you move a file, or change a directory
+name, etc.
+
+Sometimes you want to remove a file from your git repository but keep it on your
+local directory. In these cases, use:
+
+    git rm --cached <file_or_directory>
+
+The `--cached` flag removes tracking from your Git repository while leaving the
+file or directory on your local working directory.
