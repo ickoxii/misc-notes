@@ -29,3 +29,4 @@
     - dumping cores on macOS
     - linking lldb to a process
     - open lldb with an executable and a core
+    - setting breakpoints
