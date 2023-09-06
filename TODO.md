@@ -23,3 +23,9 @@
 2. Update README.md with links
 
 3. Add table of contents to README's (especially the long ones)
+
+4. Add more information on using lldb
+    - compiling with `-g`
+    - dumping cores on macOS
+    - linking lldb to a process
+    - open lldb with an executable and a core
