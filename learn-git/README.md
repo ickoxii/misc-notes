@@ -402,3 +402,14 @@ local directory. In these cases, use:
 
 The `--cached` flag removes tracking from your Git repository while leaving the
 file or directory on your local working directory.
+
+#### Removing a bunch of cached files
+
+    git status | grep 'deleted:' | awk '{print $2}' | xargs git rm --cached
+
+`git status` : lists all changes including deleted files
+`grep 'deleted:'` : filters output to show only lines with 'deleted:'
+`awk '{print $2}'` : processes the filtered output to extract just the file
+paths
+`xargs git rm --cached` : passes the file paths to the `git rm --cached`
+command, which will un-stage these files.
