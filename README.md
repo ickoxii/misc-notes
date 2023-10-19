@@ -20,6 +20,16 @@ Source code and notes taken from: <https://www.youtube.com/watch?v=tK9Oc6AEnR4>
 
 Contains notes on bash scripting constructs, useful for automation.
 
+## learn-cli
+
+Basic information regarding a command line interface game.  
+
+Information referenced from: <https://www.youtube.com/watch?v=cWc0hgYwZyc>
+
+## learn-dot-files
+
+Information on configuration files for macOS (and maybe a bit of LINUX).
+
 ## learn-git
 
 Information in learn-git.md taken from: <https://www.youtube.com/watch?v=Uszj_k0DGsg>
@@ -30,10 +40,21 @@ Information in README.md gleaned (with consent) from Chat GPT.
 
 Information on how to use the lldb command line debugger for C++.
 
+## learn-makefiles
+
+Information on what Makefiles are and how to use them. Information taken from 
+ChatGPT.
+
 ## learn-markdown
 
 How to use the *Markdown* markup language. *Markdown* is the language used in
 GitHubs README.md files.
+
+## learn-regex
+
+How to use regular expressions.  
+
+Information taken from: <https://regexone.com>
 
 ## learn-vim
 
