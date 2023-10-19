@@ -3,9 +3,35 @@
 This contains information found in vimtutor provided by vim, consolidated in one
 place.
 
-## Introduction
+## Chapters
 
-
+- [Moving the Cursor](#moving-the-cursor)
+- [Exiting ViM](#exiting-vim)
+- [Text Editing](#text-editing)
+- [On Operators and Motions](#on-operators-and-motions)
+- [The Undo Command](#the-undo-command)
+- [The Redo Command](#the-redo-command)
+- [The Put Command](#the-put-command)
+- [The Replace Command](#the-replace-command)
+- [The Change Operator](#the-change-operator)
+- [Cursor Location and File Status](#cursor-location-and-file-status)
+- [The Search Command](#the-search-command)
+- [Matching Parenthesis Search](#matching-parenthesis-search)
+- [The Substitute Command](#the-substitute-command)
+- [Executing External Commands](#executing-external-commands)
+- [More on Writing Files](#more-on-writing-files)
+- [Selecting Text to Write (Visual Mode)](#selecting-text-to-write-visual-mode)
+- [Retrieving and Merging Files](#retrieving-and-merging-files)
+- [The Open Command](#the-open-command)
+- [The Append Command](#the-append-command)
+- [Another Way to Replace](#another-way-to-replace)
+- [Copy and Paste Text (Yank)](#copy-and-paste-text-yank)
+- [Set Option](#set-option)
+- [Getting Help](#getting-help)
+- [Creating a Startup Script](#create-a-startup-script)
+- [Completion](#completion)
+- [How to Create a File Template with Vim](#how-to-create-a-file-template-with-vim)
+- [Using Vim's `autocmd` and Skeleton Files for File Templates](#using-vims-autocmd-and-skeleton-files-for-file-templates)
 
 ### Moving the Cursor
 
@@ -172,7 +198,7 @@ mode, which you can then use motions to select the text you want. `:w FILENAME`
 then takes the text marked in visual mode and writes it to a file of the given
 name.
 
-## Retrieving and Mergin Files
+## Retrieving and Merging Files
 
 To insert the contents of a file at the cursor, type `:r FILENAME`.   
 
