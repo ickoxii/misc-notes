@@ -41,6 +41,22 @@ name of an output file, or a  **recipe**, a named set of instructions
 (a "phony target") which specifies instructions on how to produce a target 
 from source files.  
 
+#### Phony Targets
+
+.PHONY: is a special target used to declare certain targets as "phony".
+Phony targets are not actual files; they are used to specify actions
+that should always be executed, regardless of whether a file with
+the same name as target exists.  
+
+Phony targets are typically used for tasks that don't produce output
+files or don't depend on the existence/modification of files. Instead,
+They are executed based on their dependencies and commands.  
+
+Even though some of our targets create output files, none of the output
+files created are of the same name as our targets. Therefore, they should
+all be phony (i.e. `test` does not create a file named `test`, `diff` does
+not create a file named `diff`, etc.)
+
 ### 2. Dependencies
 
 Targets often have dependencies, which are files that must be created 
