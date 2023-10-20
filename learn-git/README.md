@@ -416,14 +416,25 @@ name, etc.
 Sometimes you want to remove a file from your git repository but keep it on your
 local directory. In these cases, use:
 
-    git rm --cached <file_or_directory>
+    `git rm --cached <file_or_directory>`
 
 The `--cached` flag removes tracking from your Git repository while leaving the
 file or directory on your local working directory.
 
 #### Removing a bunch of cached files
 
-    git status | grep 'deleted:' | awk '{print $2}' | xargs git rm --cached
+1. Solution 1:  
+
+```bash
+git rm $(git ls-files --deleted)
+```
+
+
+2. Solution 2:
+
+```bash
+git status | grep 'deleted:' | awk '{print $2}' | xargs git rm --cached
+```
 
 `git status` : lists all changes including deleted files
 `grep 'deleted:'` : filters output to show only lines with 'deleted:'
@@ -431,3 +442,104 @@ file or directory on your local working directory.
 paths
 `xargs git rm --cached` : passes the file paths to the `git rm --cached`
 command, which will un-stage these files.
+
+## Merging a Git Repository Into a Parent Directory
+
+Suppose you have a directory structure as follows:  
+
+```
+class/
+    class-notes/
+        .git/
+    projects/
+        .git/
+    homework/
+        .git/
+```
+
+Suppose you initially set up a git repository for each of the sub-directories 
+within `class/`. i.e. You have a git repository for `class-notes/`, a 
+repository for `projects/`, and a repository for `homework/`.  
+
+Consider the situation where we would like to consolidate our repositories 
+into a single repository based in `class/`, and we would like to keep all 
+of our previous git history in each initial repository.  
+
+i.e., we would like our final structure to be as follows:  
+
+```
+class/
+    .git/
+    class-notes/
+    projects/
+    homework/
+```
+
+1. **Initialize the Main Repository**:  
+
+Navigate to the `class/` directory and initialize a new Git repository
+
+```bash
+cd path/to/class
+git init
+```
+
+2. **Add Repositories as Remotes**:  
+
+You'll treat each of the sub-directories (`class-notes/`, `projects/`, and 
+`homework/`) as remotes for the `class/` repository.
+
+```bash
+git remote add class-notes path/to/class/class-notes
+git remote add projects path/to/class/projects
+git remote add homework path/to/class/homework
+```
+
+3. **Fetch and Merge the Histories**:  
+
+For each remote, you'll fetch its commits and then merge them into the `class/` 
+repository.
+
+```bash
+git fetch class-notes
+git merge class-notes/master --allow-unrelated-histories
+
+git fetch projects
+git merge projects/master --allow-unrelated-histories
+
+git fetch homework
+git merge homework/master --allow-unrelated-histories
+```
+
+The `--allow-unrelatedhistories` flag is necessary because Git will see these 
+as completely unrelated git repository. 
+
+4. **Directory Structure**:  
+
+After the merge, all files from `class-notes/`, `projects/`, and `homework/` 
+will be in the root of the `class/` repository. To achieve the previous 
+directory structure:  
+
+```bash
+mkdir class-notes projects homework
+mv [specific files and folders for class-notes] class-notes/
+mv [specific files and folders for projects] projects/
+mv [specific files and folders for homework] homework/
+```
+
+Then, stage and commit these changes:
+
+```bash
+git add .
+git commit -m "Reorganized git repository structure."
+```
+
+5. **Clean Up**:  
+
+Once you're certain everything has been consolidated correctly, you can remove 
+the old '.git' directories from 'class-notes', 'projects', and 'homework'.
+
+6. **Remote Repository**:
+
+If you want to link this consolidated repository to a remote platform, you'd 
+proceed as before.
