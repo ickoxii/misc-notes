@@ -6,6 +6,24 @@ work on a project simultaneously, ensuring that their individual contributions
 are tracked, merged, and integrated seamlessly. Git was created by Linus
 Torvalds in 2005 for the development of the Linus kernel.
 
+## Table of Contents
+
+1. [About Git](#key-features-and-concepts-associated-with-git)
+2. [Initializing a Repo, Making Changes and Merging Branches](#initializing-a-git-repository-making-changes-and-merging-branches)
+3. [Variables](#variables)
+    1. [Starting With an Initially Empty Directory](#starting-with-an-initially-empty-directory)
+    2. [No Remote Repository](#no-remote-repository)
+    3. [`git checkout` Flags](#git-checkout-flags)
+4. [Making Mistakes](#making-mistakes)
+    1. [Cancelling Commits](#cancelling-commits)
+    2. [Checkout a Previous Commit (detach HEAD)](#checkout-a-previous-commit-detach-head)
+    3. [Revert a Specific Commit](#revert-a-specific-commit)
+    4. [Discarding Commits (git reset)](#reset)
+5. [Finding Your Commit Hash With `git reflog`](#finding-your-commit-hash-with-git-reflog)
+6. [MISC](#misc)
+    1. [Using `gitrm`](#using-git-rm)
+
+
 ## Key Features and Concepts Associated With Git
 
 1. **Distributed Version Control**: Unlike centralized version control systems, 
