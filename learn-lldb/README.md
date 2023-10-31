@@ -77,4 +77,26 @@ state of the program when it crashed.
 
 ## `lldb` and its Commands
 
+## Input Redirection with `lldb`
 
+Once we begin an `lldb` process, we can emulate `./executable_name <
+/path/to/input.txt` using the `run -- < /path/to/input.txt` command.
+
+```bash
+lldb ./executable_name
+(lldb) run -- < /path/to/input.txt
+(lldb) n
+(lldb) quit
+```
+
+`--` separates lldb commands, so I assume you can actually run `(lldb) run` and
+`(lldb) < /path/to/input.txt` as separate commands.
+
+Note: when we use input redirection while invoking the process (i.e. `lldb
+./exec_name < /path/to/input.txt`), lldb reads the file as lldb commands and 
+attempts to execute them instead of letting the executable read the file as
+input.  
+
+I suppose this could be useful to automate the input redirection part. We can
+have a file that contains `run -- < /path/to/input.txt` command, and use that 
+in the 'args' field of the launch.json file for vscode debugging.
