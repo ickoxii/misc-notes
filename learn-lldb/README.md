@@ -111,4 +111,4 @@ lldb ./exec
 (lldb) run
 ```
 
-When trying to use this in vs code tho... doesnt exactly work.
+When trying to use this in vs code tho... even `settings set` doesnt exactly work.
