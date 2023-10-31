@@ -100,3 +100,15 @@ input.
 I suppose this could be useful to automate the input redirection part. We can
 have a file that contains `run -- < /path/to/input.txt` command, and use that 
 in the 'args' field of the launch.json file for vscode debugging.
+
+### Addendum
+
+Yeah so this shit dont work. Use this instead:
+
+```bash
+lldb ./exec
+(lldb) settings set target.input-path /path/to/input
+(lldb) run
+```
+
+When trying to use this in vs code tho... doesnt exactly work.
