@@ -17,6 +17,8 @@ If appended with `(lldb)`, the command is run from inside an lldb process.
     * [Manipulating Breakpoints](#manipulating-breakpoints)
 * [Stepping Around](#stepping-around)
 * [Inspecting Variables](#inspecting-variables)
+* [Backtrace and Frames](#backtrace-and-frames)
+* [Watchpoints](#watchpoints)
 
 
 ```bash
@@ -118,8 +120,9 @@ number.
 
 ## Stepping Around
 
+|**Stepping Around**|  
+|-------------------|  
 |**Step Over**|  
-|-----------------|  
 |`(lldb) next`|  
 |`(lldb) n`|  
 |**Step Into**|  
@@ -134,18 +137,71 @@ number.
       over' that line and execute it without going into the cout library call
 * **Step Into**: step into the function we call
     * For example, if you have a line `int s = area(l);`, `step` will 'step
-      into' the area function
+      into' the `area` function
 * **Continue**: execute until the next breakpoint
 
 ## Inspecting Variables
 
-|**Print Variable Contents**|  
+|**Inspecting Variables**|  
 |---------------------------|  
+|**Print Variable Contents**|  
 |`(lldb) p varName`|  
 |**Frame Variables**|  
 |`(lldb) frame variable`|  
 |`(lldb) fr v`|  
 |**Current Line**|  
 |`(lldb) frame select`|  
+|`(lldb) fr s`|  
 
+* `p varName` - Prints the value stored in varName
+* `frame variable` - Prints all variables on the current stack frame
+* `frame select` - Choose a stack frame
+    * Frame 0 is always the top of the stack (most recent frame)
+    * If you lose where you are (ex. call help function and it clears your
+      screen), you can go back to where you were using `fr s`
 
+## Backtrace and Frames
+
+|**Backtrace and Frames**|  
+|------------------------|  
+|**Backtrace**|  
+|`(lldb) bt`|  
+|**Switching Frames**|  
+|`(lldb) frame select #`|  
+|`(lldb) f #`|  
+
+* `(lldb) bt` - back trace prints a list of the current function call stack
+* `(lldb) frame select #` - selects frame '#'
+
+## Watchpoints
+
+***Program must be running in order to set the watch point***. This is so that
+the debugger knows the address that variable is stored at.  
+
+|**Global Variable**|  
+|-----------------------------------------------------------------------------|  
+|`(lldb) watchpoint set variable globalVariable`|  
+|`(lldb) watchpoint set variable -w read | write | read_write globalVariable`|  
+|**Member Variable**|  
+|`(lldb) b main)`|  
+|`(lldb) w s v d.memberVar`|  
+
+Watchpoints are used to monitor and trigger breakpoints when a specified memory
+location is modified. We can specify when to trigger this breakpoint using the
+specifiers:  
+* `read` - set breakpoint when variable is read from  
+* `write` - set breakpoint when variable is written to  
+* `read_write` - set breakpoint when variable is read from or written to  
+The shorthand for this is `w s v` -- [W]atchpoint [S]et [V]ariable.
+
+## Terminating
+
+|**Termination**|  
+|---------------|  
+|**Kill Process**|  
+|`(lldb) kill`|  
+|**Exiting**|  
+|`(lldb) quit`|  
+|`CTRL-D`|  
+
+Kill the process first using `kill`, then exit the lldb process using `quit`.
