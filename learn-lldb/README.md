@@ -118,15 +118,16 @@ number.
 
 ## Stepping Around
 
-|**Step Over**|
-|`(lldb) next`|
-|`(lldb) n`|
-|**Step Into**|
-|`(lldb) step`|
-|`(lldb) s`|
-|**Continue**|
-|`(lldb) continue`|
-|`(lldb) c`|
+|**Step Over**|  
+|-----------------|  
+|`(lldb) next`|  
+|`(lldb) n`|  
+|**Step Into**|  
+|`(lldb) step`|  
+|`(lldb) s`|  
+|**Continue**|  
+|`(lldb) continue`|  
+|`(lldb) c`|  
 
 * **Step Over**: execute the next line of code
     * For example, if we have the line `std::cout << "Hello"`, `next` will 'step
@@ -138,12 +139,13 @@ number.
 
 ## Inspecting Variables
 
-|**Print Variable Contents**|
-|`(lldb) p varName`|
-|**Frame Variables**|
-|`(lldb) frame variable`|
-|`(lldb) fr v`|
-|**Current Line**|
-|`(lldb) frame select`|
+|**Print Variable Contents**|  
+|---------------------------|  
+|`(lldb) p varName`|  
+|**Frame Variables**|  
+|`(lldb) frame variable`|  
+|`(lldb) fr v`|  
+|**Current Line**|  
+|`(lldb) frame select`|  
 
 
