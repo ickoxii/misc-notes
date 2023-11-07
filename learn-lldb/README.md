@@ -1,114 +1,149 @@
-# Using lldb to Debug C++ on MacOS
+# Debugging C/C++ with lldb
 
-## Getting Started
+All code blocks are commands to be run in a shell unless otherwise stated. 
+If appended with `(lldb)`, the command is run from inside an lldb process.
 
-There are a few things you need to do before you actaully use lldb to begin
-debugging your program. 
+[Debugging C/C++ with LLDB Tutorial](https://www.youtube.com/watch?v=2GV0K9Y2MKA&t=440s)
 
-### Compiling Your Program with `-g`
+## Chapters
 
-You can compile your program without the -g flag, but then some information may
-be lost when debugging, such as variable names and line numbers.
+* [Compiling Your Program](#compiling-your-program)
+* [Starting LLDB](#starting-lldb)
+    * [With Command Line Arguments](#with-args)
+    * [With Input Redirection](#with-input-redirection)
+    * [With Output Redirection](#with-output-redirection)
+* [Setting Breakpoints](#setting-breakpoints)
+    * [Breakpoints with Symbols](#breakpoints-with-symbols)
+    * [Manipulating Breakpoints](#manipulating-breakpoints)
+* [Stepping Around](#stepping-around)
+* [Inspecting Variables](#inspecting-variables)
 
-    g++ -o a.out proj.cpp -g
-
-### Dumping a Core
-
-Dumping a core is not always necessary, but can give you more information that
-you would typically receive. Cores on MacOS are typically dumped in the /cores/
-directory. The following steps describe how to dump your core in your local
-working directory instead.
-
-On MacOS, we can set the maximum core dump size to unlimited. This can be done
-using:
-
-    ulimit -c unlimited
-
-1. **Attach `lldb` to the process**:
-
-    lldb -o [PID]
-
-Where `[PID]` is the process ID of the process you wish to dump. To find the PID
-of the process we wish to dump, we can use the `pgrep` command (process grep)
-while our executable is running. We can use ^Z (ctrl+Z) to suspend the process
-when we begin running it and use another terminal window to `pgrep` for our PID.
-
-Instead, we can start running our executable while it is already in the suspend
-state. To do this on macOS, you can use the command
-
-    (sleep 1 && kill -STOP $1) & ./a.out &
-
-After using this command, we can verify that our process has stopped using the
-`jobs` command.
-
-2. **Once in `lldb`, generate the core dump**:
-
-    process save-core ./core_filename
-
-3. **Exit `lldb`**:
-
-    quit
-
-This will produce the core dump in your current directory with the name you
-specified. 
-
-Bear in mind that this method does pause the process briefly while the core is
-being saved.
-
-## Debugging with lldb
-
-Now that we have dumped out core, we can run `lldb` as usual, with some modified
-steps in order to link the core to our executable.
-
-### Linking Your Core File
-
-1. **Load core into `lldb` alongside original binary for debugging**:
-
-    lldb <path-to-binary> -c <path-to-core-dump>
-
-i.e.
-    
-    lldb ./my\_program -c ./core
-
-2. **Debugging the Core Dump**:
-
-Once the core is loaded, you can use regular `lldb` commands to inspect the
-state of the program when it crashed.
-
-## `lldb` and its Commands
-
-## Input Redirection with `lldb`
-
-Once we begin an `lldb` process, we can emulate `./executable_name <
-/path/to/input.txt` using the `run -- < /path/to/input.txt` command.
 
 ```bash
-lldb ./executable_name
-(lldb) run -- < /path/to/input.txt
-(lldb) n
-(lldb) quit
+g++ -g main.cpp -o a.out
+lldb a.out
 ```
 
-`--` separates lldb commands, so I assume you can actually run `(lldb) run` and
-`(lldb) < /path/to/input.txt` as separate commands.
+## Compiling Your Program
 
-Note: when we use input redirection while invoking the process (i.e. `lldb
-./exec_name < /path/to/input.txt`), lldb reads the file as lldb commands and 
-attempts to execute them instead of letting the executable read the file as
-input.  
+`g++ -g main.cpp -o a.out`  
 
-I suppose this could be useful to automate the input redirection part. We can
-have a file that contains `run -- < /path/to/input.txt` command, and use that 
-in the 'args' field of the launch.json file for vscode debugging.
+We want to compile our program with the `-g` flag to enable debug mode
 
-### Addendum
-
-Yeah so this shit dont work. Use this instead:
+## Starting LLDB
 
 ```bash
-lldb ./exec
-(lldb) settings set target.input-path /path/to/input
+# Start lldb process with the given executable
+lldb a.out
+# Run process with run
 (lldb) run
+# Or, run process with r
+(lldb) r
+````
+
+### With args
+
+If you call a program like `./a.out argument1`, the equivalent in lldb is:
+
+```bash
+# From command line
+lldb -- a.out argument1
+# Or, from inside lldb
+(lldb) settings set --target.run-args "argument1"
 ```
 
-When trying to use this in vs code tho... even `settings set` doesnt exactly work.
+### With input redirection
+
+If you call a program like `./a.out < /path/to/input`, the equivalent in
+lldb is:
+
+```bash
+lldb a.out
+(lldb) settings set --target.input-path "/path/to/input"
+```
+
+### With output redirection
+
+Not tested yet, but assuming this works based in input redirection
+
+```bash
+lldb a.out
+(lldb) settings set --target.output-path "/path/to/output"
+```
+
+## Setting Breakpoints
+
+Breakpoints can be set with any of the following commands. Each successive
+command is shorthand for its predecessor.  
+
+```bash
+(lldb) break set -f demo.cpp -l #
+(lldb) br s -f demo.cpp -l #
+(lldb) b demo.cpp : #
+```
+
+The `-f` flag allows us to specify a file to set a breakpoint in the specified
+file. The `-l` is for specifying the line number at which to set the breakpoint.
+`#` is the actual line number the breakpoint will be set to.
+
+### Breakpoints with Symbols
+
+* ***On a function***  
+`(lldb) b square(int)`
+* ***On a class method***  
+`(lldb) b Demo::demo()`  
+* ***Inside a namespace***  
+`(lldb) b nameSpaceName::function_name(int, int)`  
+
+If we want to pause execution as soon as we run our program, we can set a
+breakpoint at main(), i.e. `b main`.
+
+### Manipulating Breakpoints
+
+* ***Listing Breakpoints***
+
+```bash
+(lldb) br list
+```
+
+* ***Deleting Breakpoints***
+
+```bash
+(lldb) br del #
+(lldb) br del
+```
+
+In this case `#` is the breakpoint number when printing `br list`, not the line
+number.
+
+## Stepping Around
+
+|**Step Over**|
+|`(lldb) next`|
+|`(lldb) n`|
+|**Step Into**|
+|`(lldb) step`|
+|`(lldb) s`|
+|**Continue**|
+|`(lldb) continue`|
+|`(lldb) c`|
+
+* **Step Over**: execute the next line of code
+    * For example, if we have the line `std::cout << "Hello"`, `next` will 'step
+      over' that line and execute it without going into the cout library call
+* **Step Into**: step into the function we call
+    * For example, if you have a line `int s = area(l);`, `step` will 'step
+      into' the area function
+* **Continue**: execute until the next breakpoint
+
+## Inspecting Variables
+
+|**Print Variable Contents**|
+|`(lldb) p varName`|
+|**Frame Variables**|
+|`(lldb) frame variable`|
+|`(lldb) fr v`|
+|**Current Line**|
+|`(lldb) frame select`|
+
+
