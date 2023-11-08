@@ -32,6 +32,7 @@ place.
 - [Completion](#completion)
 - [How to Create a File Template with Vim](#how-to-create-a-file-template-with-vim)
 - [Using Vim's `autocmd` and Skeleton Files for File Templates](#using-vims-autocmd-and-skeleton-files-for-file-templates)
+- [Folding](#folding)
 
 ### Moving the Cursor
 
@@ -375,3 +376,21 @@ With the setup complete, creating a new Python file:
 ```bash
 vim newfile.py
 ```
+
+## Folding
+
+### Manipulating Folds
+
+* `zf{motion]`: Create a fold from the current cursor position to the specified
+  motion.
+* `zf`: While in a visual block, will fold the selected text
+* `zo`: Open fold
+* `zc`: Close fold
+* `za`: Toggle fold
+* `zR`: Open all folds in file
+* `zM`: Close all folds in file
+
+### Saving a Files Fold Information
+
+* `:mkview`: Saves a files fold information
+* `:loadview`: Load the files saved fold information
