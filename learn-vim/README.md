@@ -389,6 +389,7 @@ vim newfile.py
 * `za`: Toggle fold
 * `zR`: Open all folds in file
 * `zM`: Close all folds in file
+* `zd`: Delete the current fold
 
 ### Saving a Files Fold Information
 
