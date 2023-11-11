@@ -1,7 +1,11 @@
 # misc-notes
 
 Here lies various things I have learned during my coding career. A majority of
-these sources are the result of Google searches or Chat GPT queries.
+these sources are the result of Google searches or Chat GPT queries.  
+
+Any information here is almost guaranteed to not be 100% correct, and I take 
+full accountability for any inconsistencies or incorrectness as a result of my 
+ignorance. Please submit any corrections to my [email](iben.ixi@gmail.com): <iben.ixi@gmail.com>
 
 ## [Configuring Neovim](./configure-nvim/)
 
