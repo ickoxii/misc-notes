@@ -61,7 +61,7 @@ lldb is:
 
 ```bash
 lldb a.out
-(lldb) settings set --target.input-path "/path/to/input"
+(lldb) settings set -- target.input-path "/path/to/input"
 ```
 
 ### With output redirection
@@ -70,7 +70,7 @@ Not tested yet, but assuming this works based in input redirection
 
 ```bash
 lldb a.out
-(lldb) settings set --target.output-path "/path/to/output"
+(lldb) settings set -- target.output-path "/path/to/output"
 ```
 
 ## Setting Breakpoints
