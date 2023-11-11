@@ -3,6 +3,14 @@
 Here lies various things I have learned during my coding career. A majority of
 these sources are the result of Google searches or Chat GPT queries.
 
+## [Configuring Neovim](./configure-nvim/)
+
+Thanks to the PrimeAgen for his [0 to LSP Neovim Configuration
+Tutorial](https://www.youtube.com/watch?v=w7i4amO_zaE&t=1242s).  
+
+My resulting nvim config can be found
+[here](https://github.com/ickoxii/dot-files/tree/main/nvim).
+
 ## [helpfulC++](helpfulC++/)
 
 This contains an assortment of algorithms in C++. Some have been taken from my
@@ -25,6 +33,12 @@ Contains notes on bash scripting constructs, useful for automation.
 Basic information regarding a command line interface game.  
 
 Information referenced from: <https://www.youtube.com/watch?v=cWc0hgYwZyc>
+
+## [Learn Docker](./learn-docker/)
+
+Basic information on setting up Ubuntu Linux on an Apple M1 Mac.  
+
+Information referenced from: <https://www.youtube.com/watch?v=idtIeTF9LsI>
 
 ## [learn-dot-files](learn-dot-files/)
 
