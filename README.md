@@ -22,6 +22,8 @@ by me.
 This directory contains information on various bash commands, such as the `ln`
 command (used to create symlinks).
 
+1. [Sym-links -- the `ln` command](./learn-bash-commands/learn-ln/)
+
 ## [Learn Bash Scripting](learn-bash-script/)
 
 Source code and notes taken from: <https://www.youtube.com/watch?v=tK9Oc6AEnR4>
@@ -42,7 +44,10 @@ Information referenced from: <https://www.youtube.com/watch?v=idtIeTF9LsI>
 
 ## [Learn Dot Files](learn-dot-files/)
 
-Information on configuration files for macOS (and maybe a bit of LINUX).
+Information on configuration files for macOS (and maybe a bit of LINUX).  
+
+Consolidating all of our configuration files in one directory, then creating 
+symlinks to where the application expects to read its config file.
 
 ## [Learn Git](learn-git/)
 
