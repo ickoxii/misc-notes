@@ -160,7 +160,7 @@ Now that we are in Docker, there are a few things we need to set up.
     * vim
     * probably don't bring nvim and the whole LSP over
 
-2. Git integration
+2. Git integration (maybe)
 
 2. Compilers:
     * clang/g++
@@ -176,3 +176,9 @@ Now that we are in Docker, there are a few things we need to set up.
     * valgrind
 
 6. Document sync with projects in macOS
+
+7. `make`
+
+## Syncing With Files From Your Local System
+
+
