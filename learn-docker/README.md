@@ -1,5 +1,17 @@
 # Configuring an Ubuntu VM on Docker
 
+## Update:
+
+```bash
+# Call 'run' with certain flags on the distro name
+docker run -dit ubuntu
+# Search for the process you just created
+docker ps -a
+# Use exec with -it flags to launch interactive terminal
+# 'campassionate_cray' was the name of the ubuntu process created earlier
+docker exec -it compassionate_cray bash
+```
+
 Thank you to Libo Sun for the video: 
 [Link](https://www.youtube.com/watch?v=idtIeTF9LsI)
 
@@ -147,6 +159,8 @@ Now that we are in Docker, there are a few things we need to set up.
 1. Text Editor
     * vim
     * probably don't bring nvim and the whole LSP over
+
+2. Git integration
 
 2. Compilers:
     * clang/g++
