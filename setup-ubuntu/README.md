@@ -26,4 +26,7 @@ apt install valgrind
 
 # Git integration
 apt install git-all
+
+# Terminal multiplexer
+apt install tmux
 ```
