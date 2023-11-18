@@ -413,3 +413,25 @@ file or directory on your local working directory.
 paths
 `xargs git rm --cached` : passes the file paths to the `git rm --cached`
 command, which will un-stage these files.
+
+
+## Sparse Checkout
+
+<https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository>
+
+Sparse checkout is for when we want to clone only certain subdirectories from 
+within our git repository. The steps to do a sparse *clone* are:
+
+```bash
+mkdir <repo>
+cd <repo>
+git init
+git remote add -f origin <url>
+```
+
+This creates an empty repository with your remote, and fetchs all objects but 
+doesn't check them out. Then do:
+
+```bash
+git config core.sparseCheckout true
+```
