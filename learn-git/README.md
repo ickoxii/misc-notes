@@ -443,6 +443,7 @@ paths
 `xargs git rm --cached` : passes the file paths to the `git rm --cached`
 command, which will un-stage these files.
 
+<<<<<<< HEAD
 ## Merging a Git Repository Into a Parent Directory
 
 Suppose you have a directory structure as follows:  
@@ -543,3 +544,75 @@ the old '.git' directories from 'class-notes', 'projects', and 'homework'.
 
 If you want to link this consolidated repository to a remote platform, you'd 
 proceed as before.
+=======
+
+## Sparse Checkout
+
+<https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository>
+
+Sparse checkout is for when we want to clone only certain subdirectories from 
+within our git repository. The steps to do a sparse *clone* are:
+
+```bash
+mkdir <repo>
+cd <repo>
+git init
+git remote add -f origin <url>
+```
+
+This creates an empty repository with your remote, and fetchs all objects but 
+doesn't check them out. Then do:
+
+```bash
+git config core.sparseCheckout true
+```
+
+Now you need to define which files/folders you want to actually check out. This 
+is done by listing them in .git/info/sparse-checkout, eg:
+
+```bash
+echo "some/dir/" >> .git/info/sparse-checkout
+echo "another/dir/" >> .git/infor/sparse-checkout
+```
+
+Last but not least, update your empty repo with the state from the remote: 
+
+```
+git pull origin master
+```
+
+You will now have files "checked out" for 'some/dir' and 'another/sub/tree' 
+on your file system (with those paths still), and no other paths present
+
+We can make this into a function which takes in the url and local directory:
+
+```bash
+function git_sparse_clone() (
+  rurl="$1" localdir="$2" && shift 2
+
+  mkdir -p "$localdir"
+  cd "$localdir"
+
+  git init
+  git remote add -f origin "$rurl"
+
+  git config core.sparseCheckout true
+
+  # Loops over remaining args
+  for i; do
+    echo "$i" >> .git/info/sparse-checkout
+  done
+
+  git pull origin master
+)
+```
+
+Usage:  
+
+```bash
+git_sparse_clone "http://github.com/tj/n" "./local/location" "/bin"
+```
+
+[readtree man page](https://schacon.github.io/git/git-read-tree.html#_sparse_checkout)
+[sparse checkout man page](https://git-scm.com/docs/git-sparse-checkout)
+>>>>>>> 9894c0abcd04390896624d7c8fdb8759fe0bc996
