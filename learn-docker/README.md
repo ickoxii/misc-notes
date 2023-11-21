@@ -182,3 +182,127 @@ Now that we are in Docker, there are a few things we need to set up.
 ## Syncing With Files From Your Local System
 
 
+
+# Using Docker and Syncing Files
+
+The next tutorial is taken from [Christian Lempa's](https://www.youtube.com/@christianlempa) 
+how to use docker tutorial: <https://www.youtube.com/watch?v=y0GGQ2F2tvs>  
+
+## Introduction
+
+We will learn the basics of Containerization in Docker on Linux servers and how 
+to easily migrate all your existing applications such as websites and databases 
+into Docker containers.
+
+## What is Docker? How Does it Work?
+
+Docker is an open-source application that allows for containerization. 
+Containerization means we can run applications isolated from each other and 
+deploy them in packages. How is it different from virtualization? Both 
+provide a layer of abstraction between the host and the applications. 
+However, containers only run on the same type of operating system that is 
+installed on the host (i.e. you can only run Windows containers on a Windows 
+host, and Linux containers on a Linux host). Unlike virtual machines, container 
+images don't contain a full operating system stack. Instead, they only include 
+the containerized applications and all the necessary libraries and packages the 
+developer have packaged inside of the image.  
+
+Docker images are incredibly lightweight and start up much faster than virtual 
+machines.
+
+## Getting Started With Docker
+
+[Docker Man Page](https://docs.docker.com/engine/install/)   
+[Docker Desktop MacOS](https://www.docker.com/products/docker-desktop/)   
+[Docker Hub - Container Database](https://hub.docker.com/)
+
+After installing docker desktop, open Docker Desktop to begin running our 
+Docker daemon and open your preffered terminal application. 
+
+```bash
+# Check to see if docker installed correctly
+docker --version
+# Run a test container to see if our docker daemon works
+docker run hello-world
+
+# (Optional) using the nginx web-server (non-persistent)
+docker run -p 80:80 -d nginx
+# Check all our currently running containers
+docker ps
+# Sample docker ps output
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS        PORTS                               NAMES  
+94988d766b03   ubuntu    "/bin/bash"              8 days ago      Up 2 days                                         compassionate_cray  
+d6ed3d16f042   nginx     "/docker-entrypoint..."  9 seconds ago   Up 8 seconds  0.0.0.0:80->80/tcp, :::80->80/tcp   dazzling_goldwasser 
+# Stopping a container
+docker stop d6ed3e16f042
+# Remove a container
+docker rm d6ed3e16f042
+
+# Using the nginx web-server (persistent)
+# Go to browser url `localhost` to see if it installed correctly
+# -v /absolute/path/to/local/project:/absolute/path/to/mount/location
+# From video: docker run -p 80:80 -v nginx_data:/usr/share/nginx/html -d nginx
+docker run -p 80:80 -v /Users/ickoxii/Coding/nginx/html:/usr/share/nginx/html -d nginx
+# List all Docker Volumes (nginx_data should show up here)
+docker volume ls
+# Inspect your volume data
+docker inspect nginx_data
+
+# Now, even if we stop, remove, then redeploy our container,
+# it will still have our data persistently
+```
+
+### Referring to Containers
+
+Here is the output of a `docker ps` command:   
+
+CONTAINER ID   IMAGE     COMMAND       CREATED      STATUS      PORTS     NAMES  
+94988d766b03   ubuntu    "/bin/bash"   8 days ago   Up 2 days             compassionate_cray  
+
+Each container is identified by a CONTAINER ID (94988d766b03) and a randomly 
+assigned NAME (compassionate_cray).  
+
+Containers can be referred to by either of identifiers when starting or 
+stopping a container.
+
+### The Web-Server Shenanigans
+
+About `docker run -p 80:80 -d nginx` (non-persistent)  
+Docker always isolates containers from each other, and it also isolates the 
+network stack. So if we want access to a container, we always have to expose 
+the correct network port. In our case, a simple web-server that does not use 
+https uses port 80, so we expose port 80. The `-p 80:80` specifies the port 
+to expose. `-d` allows us to run our container in the background so that we 
+can interact with it after our `docker run` command finishes executing. If we 
+do not run it in the background, it will exit almost immediately after the 
+`docker run` command executes.  
+
+Go to your browser and type `localhost` to see if it runs.
+
+### Storing Images Persistently
+
+Docker containers are immutable. This means that changes inside the container 
+will not be reflected when it is stopped and restarted. In order to store data 
+persistently in a container, we utilize **Docker Volumes**.  
+
+Docker Volumes allows us to specify a specific data location or mount point 
+inside our container. (Note: always check your container documentation to see 
+what data should be stored persistently).  
+
+If you want to change the configuration of a container, you always have to 
+stop and redeploy that container. Containers are not made to run forever. They 
+are immutable and meant to be deployed and redeployed very quickly.  
+
+#### Specifying a Docker Volume
+
+Check which volumes you have using `docker volume ls`.  
+
+We can specify a volume to mount in our `docker run` command by using the `-v` 
+flag, followed by our next argument.  
+
+For me:   
+`-v /Users/ickoxii/Coding/nginx/html:/usr/share/nginx/html`.  
+The part before the colon is where the data is stored. The part after the colon 
+is where the data will be mounted in your container. i.e., we take the location 
+where our project is stored, and mount the data where our application expects 
+to read it from.
