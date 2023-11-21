@@ -160,7 +160,7 @@ Now that we are in Docker, there are a few things we need to set up.
     * vim
     * probably don't bring nvim and the whole LSP over
 
-2. Git integration (maybe)
+2. Git integration (probably)
 
 2. Compilers:
     * clang/g++
@@ -179,7 +179,12 @@ Now that we are in Docker, there are a few things we need to set up.
 
 7. `make`
 
+8. Multiplexer
+    * tmux
+
 ## Syncing With Files From Your Local System
+
+Figure out how to mount a volume  
 
 
 
