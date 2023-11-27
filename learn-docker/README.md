@@ -25,20 +25,11 @@ docker image ls     # Prints all images currently loaded in Docker
 docker pull ubuntu  # Pull the latest Ubuntu image into Docker
 docker image ls     # Verify Ubuntu image got pulled
 
-# 3. Start running the image in Docker Desktop
-    # Find the ubuntu image in 'images'
-    # Click 'Run'
-    # You can specify a name for you Ubuntu container or let Docker
-        # randomly generate one for you
-
-# 4. Start your container in Docker Desktop
-    # Find the container in 'Containers/Apps' and verify it is running
-
 # 5. Go back to terminal and search your Containers
 docker ps -a
 
-# 6. Start your container
-docker start your_container_name
+# 6. Run your container with --tty flag
+docker run -t -d --name create_your_container_name_here ubuntu
 
 # 7. Login to your container
 docker exec -it your_container_name bash
@@ -129,6 +120,32 @@ Those two commands cause an issue for me. I don't know if its because the
 container isn't running (see, [Issue 1](#issue-1)), or if I merely opened 
 Docker Desktop and there is an actual daemon I need to install in order 
 for additional Docker commands to execute in the terminal.
+
+### Issue 2 FIX
+
+<https://stackoverflow.com/questions/29599632/container-is-not-running>  
+
+Quote:  
+By default, docker container will exit immediately if you do not have any task 
+running on the container. To keep the container running in the background, 
+try to run it with `--interactive` (or `-i`) argument or `--tty` (or `-t`) or 
+`-it` directly.  
+
+For examples:
+```bash
+docker pull debian
+
+docker run -t -d --name my_debian debian
+e7672d54b0c2
+
+docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+e7672d54b0c2        debian              "bash"              3 minutes ago       Up 3 minutes                            my_debian
+
+#now you can execute command on the container
+docker exec -it my_debian bash
+root@e7672d54b0c2:/#
+```
 
 ## 8-11: Container Configuration
 
