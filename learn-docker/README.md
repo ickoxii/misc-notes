@@ -179,22 +179,20 @@ Now that we are in Docker, there are a few things we need to set up.
 
 2. Git integration (probably)
 
-2. Compilers:
-    * clang/g++
-
 3. Debuggers:
     * lldb
 
-4. c++ stl include's:
-    * llvm
-    * ggc@12
+4. build-essential
+    * dpkg-dev
+    * g++
+    * gcc
+    * libc6-dev OR libc-dev
+    * make
 
 5. Memory Checker:
     * valgrind
 
 6. Document sync with projects in macOS
-
-7. `make`
 
 8. Multiplexer
     * tmux
@@ -328,3 +326,52 @@ The part before the colon is where the data is stored. The part after the colon
 is where the data will be mounted in your container. i.e., we take the location 
 where our project is stored, and mount the data where our application expects 
 to read it from.
+
+# Dockerfiles
+
+Dockerfiles allow you to configure your own Docker image.
+
+Sample Dockerfile:
+```
+# Base image to pull
+FROM ubuntu
+
+# Specify working directory in container
+WORKDIR /program
+
+# Copy files from local machine to container
+# COPY /src /dest
+COPY /my/local/project/path ./
+
+# Run command line arguments to set up packages
+RUN \
+    apt-get update && \
+    apt-get install -y build-essential vim git tmux valgrind
+```
+
+Build and Run Your Image
+```
+# docker build -t username/imagename:version
+docker build -t ickoxii/my-ubuntu:1.0
+
+# Find the image id
+docker image ls
+
+# Run the container
+docker run -dit 093ff90ah0we9
+
+# Find the container name
+docker ps -a
+
+# Execute the container
+docker exec -it container_name bash
+
+# Stop container
+docker stop container_name
+
+# Remove a container
+docker rm container_name
+
+# Prune any unused and old containers
+docker sytem prune -a
+```
