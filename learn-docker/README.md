@@ -331,6 +331,8 @@ to read it from.
 
 Dockerfiles allow you to configure your own Docker image.
 
+Thanks to [Fireship](https://www.youtube.com/@Fireship) for his [Dockerfile video](https://www.youtube.com/watch?v=gAkwW2tuIqE&t=439s)
+
 Sample Dockerfile:
 ```
 # Base image to pull
