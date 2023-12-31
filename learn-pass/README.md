@@ -58,10 +58,10 @@ personal information (i.e. your stored passwords). Keep this password safe as we
 Once a passphrase is set, gpg will list a confirmation, including the ID of the 
 key you just generated. We use this key to initialize our password store.  
 
-> pub   rsa3072 2023-12-30 [SC] [expire: 2025-12-30]
->       AAAABBBBCCCC111122223333
-> uid        gpg_name <gpg_email>
-> sub   rsa3072 2023-12-30 [E] [expires: 2025-12-30]
+> pub   rsa3072 2023-12-30 [SC] [expire: 2025-12-30]  
+>       AAAABBBBCCCC111122223333  
+> uid        gpg_name <gpg_email>  
+> sub   rsa3072 2023-12-30 [E] [expires: 2025-12-30]  
 
 In our example, `AAAABBBBCCCC111122223333` is our gpg key.  
 
@@ -120,24 +120,24 @@ Under the hood, password store is a file system. We can organize our passwords
 however we like, and directories can similarly be nested to our liking. For 
 example, I have the following structure:  
 
-> email
->     school
->         username.gpg
->     personal
->         gmail
->             username.gpg
-> finance
->     bank1
->         username.gpg
->     bank2
->         username.gpg
->     taxes
->         username.gpg
-> games
->     game1
->         username.gpg
->     game2
->         username.gpg
+> email  
+>     school  
+>         username.gpg  
+>     personal  
+>         gmail  
+>             username.gpg  
+> finance  
+>     bank1  
+>         username.gpg  
+>     bank2  
+>         username.gpg  
+>     taxes  
+>         username.gpg  
+> games  
+>     game1  
+>         username.gpg  
+>     game2  
+>         username.gpg  
 
 In order to access access one of these passwords, we use the path to that password. 
 For example, if I started playing a new game and created an account, I could use 
@@ -182,15 +182,15 @@ Suppose we hastily created a new password but we forget what we named it. We can
 use `pass grep` to search through all our encrypted files to find a search term. 
 For example, we created a password and added the website name in our meta-data.  
 
-> password_here
-> URL: website.com
-> Date Created: 12-30-2023
+> password_here  
+> URL: website.com  
+> Date Created: 12-30-2023  
 
 We can use `pass grep website.com` and it will return the file path, as well as 
 printing the line contiaining the search term.  
 
-> path/to/password:
-> URL: website.com
+> path/to/password:  
+> URL: website.com  
 
 If we don't even remember the email, we can search for all of our emails: 
 `pass grep email:`  
