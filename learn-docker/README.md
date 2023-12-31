@@ -1,21 +1,14 @@
 # Configuring an Ubuntu VM on Docker
 
-## Update:
-
-```bash
-# Call 'run' with certain flags on the distro name
-docker run -dit ubuntu
-# Search for the process you just created
-docker ps -a
-# Use exec with -it flags to launch interactive terminal
-# 'campassionate_cray' was the name of the ubuntu process created earlier
-docker exec -it compassionate_cray bash
-```
+Tutorial 1:
+1. [Ubuntu-vm on MacOS M1 via Docker Desktop](#ubuntu-vm-on-macos-m1-via-docker-desktop)
+    1. [Getting Started With Docker Desktop](#getting-started-with-docker-desktop)
+    2. 
 
 Thank you to Libo Sun for the video: 
 [Link](https://www.youtube.com/watch?v=idtIeTF9LsI)
 
-## Ubuntu-vm on MacOS M1 via Docker
+## Ubuntu-vm on MacOS M1 via Docker Desktop
 
 ```bash
 # 1. Open Docker Desktop to start the Docker daemon
@@ -48,7 +41,7 @@ apt-get install iputils-ping
 ping www.google.com
 ```
 
-## 1. Getting Started with Docker Desktop
+## 1. Getting Started With Docker Desktop
 
 ```bash
 # 1. Open Docker Desktop to start the Docker daemon
@@ -68,6 +61,7 @@ docker image ls     # Prints all images currently loaded in Docker
 docker pull ubuntu  # Pull the latest Ubuntu image into Docker
 docker image ls     # Verify Ubuntu image got pulled
 ```
+
 
 We use the command `docker image ls` to list all of the images currently in 
 our docker application. We use the command `docker pull` followed by our 
