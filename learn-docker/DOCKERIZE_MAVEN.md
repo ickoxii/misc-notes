@@ -98,3 +98,9 @@ CMD java -jar lab7-0.0.1-SNAPSHOT.jar
 docker build -t <imageName> .
 docker run -it -e DISPLAY="$(getipconfig getifaddr en0)":0 <imageName>
 ```
+
+## GUI Docker
+
+* [Linux Webtop](https://docs.linuxserver.io/images/docker-webtop/)
+* [WebSwing](https://www.webswing.org/en/)
+* [WebSwing Demo](https://prototype.webswing.org/webswing-demo/)
